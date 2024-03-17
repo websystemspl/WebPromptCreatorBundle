@@ -1,0 +1,361 @@
+.pb-layout {
+    color: $text;
+    margin: 20px 0;
+    width: 100%;
+    height: 100%;
+    background: $background;
+    border-radius: 5px;
+    overflow: hidden;
+
+    &--fullscreen {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        z-index: 999;
+        padding: 0;
+        margin: 0px;
+        width: calc(100%);    
+        height: calc(100%);    
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);        
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+        animation: animateWidthHeight .2s ease-in-out;
+        overflow-y: auto;
+
+        
+        @keyframes animateWidthHeight {
+            0% {
+            width: 0;
+            height: 0;
+            }
+            100% {
+            width: 100%;
+            height: 100%;
+            }
+        }
+    }
+
+    &__body {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: $main;
+        padding: 15px 20px;
+        color: #fff;
+    }
+
+    &__header-actions {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        & i {
+            color: #fff;
+            font-size: 1.4em;
+            cursor: pointer;
+        }
+    }
+
+    &__col {
+        padding: 15px;
+
+        &--left {
+            border-right: 1px solid #ddd;
+        }
+
+        &--right {
+
+        }
+    }
+}
+
+.widget-item {
+    margin: 5px 0;
+}
+
+.pb-widgets {
+    &__header {
+        font-weight: 600;
+        margin: 10px 0 10px 0;
+    }
+}
+
+.pb-widget {
+    padding: 10px 20px;
+    background-color: #f1f5f9;
+    display: flex;
+    gap: 10px;
+    border-radius: 5px;
+    cursor: grab;
+
+    &:active {
+        cursor: grabbing;
+    }
+
+    & i {
+        color: $main;
+    }
+}
+
+.widget {
+    margin-bottom: 10px;
+    background: #ffffff;
+    display: block;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);    
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+
+        color: #ffffff;
+        padding: 10px 20px;
+
+        &--grey {
+            background: $grey;
+        }
+
+        &--green {
+            background: $green;
+        }
+
+        &--blue {
+            background: $blue;
+        }
+
+        &--main {
+            background: $main;
+        }
+    }
+
+    &__body {
+        padding: 10px;
+        background: white;
+
+        &--full {
+            padding: 0px;
+        }
+    }
+
+    &__dragArea {
+        padding: 20px;
+        border: 1px dashed #ddd;
+    }
+
+    &__info {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    &__title {
+        font-size: 1em;
+        font-weight: 600;
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        font-size: 16px;
+
+        & i:hover {
+            
+
+        }
+    }
+}
+
+.close {
+    cursor: pointer;
+}
+
+.button {
+    cursor: pointer;
+}
+
+.open {
+    cursor: pointer;
+}
+
+.settings-modal {
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    min-width: 100px;
+    min-height: 200px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1000;
+    
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 20px;
+        background-color: $main;
+        color: white;
+
+        h2 {
+            margin: 0;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: white;
+        }
+    }
+
+    &__body {
+        padding: 20px;
+        background: white;
+        overflow-y: auto;
+    }
+
+    &__footer {
+        padding: 0px;
+    }
+}
+
+.button {
+    width: 100%;
+    padding: 10px 20px;
+    border: 0;
+    background-color: $green;
+    color: white;
+    font-size: 1.4em;
+    cursor: pointer;
+
+    &--empty {
+        background-color: transparent;
+        color: white;
+        border: 0;
+        padding: 0;
+    }
+}
+
+
+.wpc-badge {
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-weight: 600;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+
+    &--primary {
+        background: white;
+        color: #666;
+    }
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.v-enter-active,
+.v-leave-active {
+    transition: all 0.5s;
+    max-height: 1000px;
+}
+
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
+    max-height: 0px;
+}
+
+.pb-logo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    svg {
+        height: 32px;
+    }
+
+    h2 {
+        margin: 0;
+        font-size: 1.4em;
+        font-weight: 900;
+        color: #fff;
+        line-height: 1em;
+    }
+
+    p {
+        margin: 0;
+        font-size: 1em;
+        font-weight: 200;
+        color: #fff;
+    }    
+}
+
+.wpc-conversation {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 20px;
+
+    &__request {
+        padding: 10px;
+        border: 1px dashed $main;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    &__widget {
+        transform: translateY(-25px);
+        padding: 10px;
+        background-color: #f1f5f9;
+
+    }
+
+    &__role {
+
+        & span {
+            font-weight: 700;
+        }
+    }
+
+    &__content {
+
+        & span {
+            font-weight: 700;
+        }
+    }
+
+    &__response {
+        padding: 10px;
+        background-color: #f1f5f9;
+        transform: translateY(-25px);
+    }
+
+    &__request-title {
+        font-size: 1em;
+        font-weight: 600;
+        transform: translateY(-25px);
+        background: #fff;
+        width: fit-content;
+        padding: 3px 10px;
+    }
+}
+
+.minimize-area {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+}
