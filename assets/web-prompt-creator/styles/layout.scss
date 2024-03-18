@@ -354,8 +354,39 @@
     }
 }
 
-.minimize-area {
+.minimized-area {
     position: fixed;
-    bottom: 0px;
-    left: 0px;
+    bottom: 5px;
+    left: 5px;
+    display: flex;
+    gap: 5px;
+
+    &__widget {
+        background: $main;   
+        padding: 10px 20px;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s;
+
+        & i {
+            font-size: 1.6em;
+        }
+
+        &:hover {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s;
+        }
+    }
+
+    &__widget-title {
+        font-weight: 600;
+    }
+
+    &__widget-info {
+        font-size: 10px;
+    }
 }

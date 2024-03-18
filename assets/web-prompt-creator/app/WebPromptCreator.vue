@@ -1,7 +1,8 @@
 <template>
     <textarea v-model="element" :id="props.element_id" :name="props.element_name" rows="3" class="form-control"></textarea>
     <Layout :content="props.element_value" />
-    <div class="minimize-area"></div>
+    <div class="minimized-area">
+    </div>
 </template>
 
 <script setup>

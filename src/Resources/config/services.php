@@ -4,7 +4,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use Websystems\WebPromptCreatorBundle\Asset\AssetPackage;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Websystems\WebPromptCreatorBundle\WebPromptCreatorService;
+use Websystems\WebPromptCreatorBundle\WebPromptCreator;
 
 return static function (ContainerConfigurator $container) {
     $services = $container->services()
@@ -18,6 +18,6 @@ return static function (ContainerConfigurator $container) {
     ;
 
     $services
-        ->set(WebPromptCreatorService::class)
+        ->set(WebPromptCreator::class)
     ;
 };

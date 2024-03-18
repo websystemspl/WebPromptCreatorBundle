@@ -24,7 +24,7 @@
             </div>
         </div>
         <Teleport to="body">
-            <SettingsModal :modalTitle="props.elementData.name" :show="showModal" @update="(e) => {showModal = false}">
+            <SettingsModal :elementData="props.elementData" :modalTitle="props.elementData.name" :show="showModal" @update="(e) => {showModal = false}">
                 <p>UID: #{{ props.elementData.uid }}</p>
                 <div class="wpc-form wpc-form--full-width">
                     <div v-if="props.parent !== null" class="wpc-form__input-group">
@@ -70,7 +70,7 @@
 </template>
 
 <script setup>
-    import { ref, watch } from 'vue';
+    import { ref, watch, computed } from 'vue';
     import { contentStore } from './../store/content.js'
     import SettingsModal from './../SettingsModal.vue';
 

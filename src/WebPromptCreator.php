@@ -8,7 +8,7 @@ use Websystems\WebPromptCreatorBundle\PromptRequest\PromptRequest;
 use Websystems\WebPromptCreatorBundle\PromptInputOptions\PromptInputOptionsInterface;
 use Websystems\WebPromptCreatorBundle\PromptRequest\PromptRequestCollection;
 
-class WebPromptCreatorService
+class WebPromptCreator
 {
     private ?AiInterface $aiService = null;
     private ?PromptInputOptionsInterface $inputData = null;

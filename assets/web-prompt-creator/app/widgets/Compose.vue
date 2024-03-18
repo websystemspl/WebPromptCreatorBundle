@@ -31,7 +31,7 @@
         </div>
 
         <Teleport to="body">
-            <SettingsModal :show="showModal" @update="(e) => {showModal = false}">
+            <SettingsModal :elementData="props.elementData" :show="showModal" @update="(e) => {showModal = false}">
                 <p>UID: #{{ props.elementData.uid }}</p>
                 <div class="wpc-form wpc-form--full-width">
                     <div class="wpc-form__input-group">
