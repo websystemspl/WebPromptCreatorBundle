@@ -7,6 +7,7 @@ class PromptRequest
     private ?string $uid = null;
     private ?array $input = null;
     private string $output = "";
+    private ?array $outputData = null;
 
     public function setInput(array $input): void
     {
@@ -36,5 +37,15 @@ class PromptRequest
     public function getOutput(): string
     {
         return $this->output;
+    }
+
+    public function getOutputData()
+    {
+        return $this->outputData;
+    }
+
+    public function setOutputData($outputData)
+    {
+        $this->outputData = $outputData;
     }
 }

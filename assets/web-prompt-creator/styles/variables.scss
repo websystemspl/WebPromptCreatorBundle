@@ -7,3 +7,36 @@ $primary: $main;
 $form_input_background: #f5f5f5;
 $text: #000;
 $background: #ffffff;
+
+body {
+    &.ea-dark-scheme {
+        --main: #6c2eb9;
+        --grey: #4c5865;
+        --green: #00c3a9;
+        --blue: #0583d4;
+        --danger: #ff4d4f;
+        --primary: --main;
+        --form_input_background: #262626;
+        --left-widget: #262626;
+        --right-widget: #0a0a0a;
+        --text: #fff;
+        --background: #0a0a0a;     
+        --border-color: #404040;   
+        --border-dashed: #000;   
+    }
+    &.ea-light-scheme {
+        --main: #6c2eb9;
+        --grey: #4c5865;
+        --green: #00c3a9;
+        --blue: #0583d4;
+        --danger: #ff4d4f;
+        --primary: --main;
+        --form_input_background: #f5f5f5;
+        --left-widget: #f5f5f5;
+        --right-widget: #ffffff;
+        --text: #000;
+        --background: #ffffff;     
+        --border-color: #ddd;     
+        --border-dashed: #ddd;   
+    }
+}

@@ -31,7 +31,7 @@
         </div>
 
         <Teleport to="body">
-            <SettingsModal :elementData="props.elementData" :show="showModal" @update="(e) => {showModal = false}">
+            <SettingsModal :elementData="props.elementData" :modalTitle="props.elementData.name" :show="showModal" @update="(e) => {showModal = false}">
                 <p>UID: #{{ props.elementData.uid }}</p>
                 <div class="wpc-form wpc-form--full-width">
                     <div class="wpc-form__input-group">
@@ -51,7 +51,7 @@
                     <div class="wpc-form__field">
                         <label for="" class="wpc-form__label">Title</label>
                         <div class="wpc-form__input">
-                            <input type="text" v-model="props.elementData.title" @input="(e) => { props.elementData.title = e.target.value }" />
+                            <input type="text" v-model="props.elementData.settings.title" @input="(e) => { props.elementData.settings.title = e.target.value }" />
                         </div>
                     </div>
                     <div v-if="props.parent === null" class="wpc-form__field">

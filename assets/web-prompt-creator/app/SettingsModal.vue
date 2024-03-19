@@ -14,12 +14,14 @@
     </Teleport>
 
     <div v-if="showModal && isMaximized" class="settings-modal" ref="target"  :style="'position: fixed; transform: translate(-50%, -50%); width:'+width+'px;'">
-      <div class="settings-modal__header" ref="targetHeader">
-        <h2>{{ modalTitle }}</h2>
-        <i v-if="props.elementData !== null" class="bi bi-arrow-bar-down pointer" @click="minimize()"></i>
-      </div>
-      <div class="settings-modal__body">
-        <slot></slot>
+      <div>
+        <div class="settings-modal__header" ref="targetHeader">
+          <h2>{{ modalTitle }}</h2>
+          <i v-if="props.elementData !== null" class="bi bi-box-arrow-in-down-left settings-modal__header-button" @click="minimize()"></i>
+        </div>
+        <div class="settings-modal__body">
+          <slot></slot>
+        </div>
       </div>
       <div class="settings-modal__footer">
         <button type="button" class="button button-danger" @click="$emit('update')"><i class="bi bi-check-lg"></i></button>

@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #ffffff;
+    background-color: transparent;
     //padding: 20px;
 
     & form {
@@ -49,42 +49,45 @@
     &__input {
         & a {
             text-decoration: underline;
-            color: $primary;
+            color: var(--primary);
         }
                 
         & input {
             padding: 10px 15px;
             width: 100%;
             outline: none;
-            background-color: $form_input_background;
+            background-color: var(--form_input_background);
             border: 0;
+            border-radius: 5px;
         }
 
         & select {
             padding: 10px 15px;
             outline: none;
-            background-color: $form_input_background;
+            background-color: var(--form_input_background);
             margin: 0 2px;
             width: 100%;
             border: 0;
+            border-radius: 5px;
         }
 
         & textarea {
             padding: 10px 15px;
             width: 100%;
             outline: none;
-            background-color: $form_input_background;
+            background-color: var(--form_input_background);
             border: 0;
+            border-radius: 5px;
         }
 
         & input[type='checkbox'] {
             @apply form-checkbox;
-            color: $primary;
-            outline-color: $primary;
+            color: var(--primary);
+            outline-color: var(--primary);
         }
 
         & input[type='file'] {
-            background-color: $form_input_background;
+            background-color: var(--form_input_background);
             padding: 7px;
         }
 

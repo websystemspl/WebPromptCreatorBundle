@@ -43,7 +43,8 @@ class WebPromptCreator
             $request = new PromptRequest();
             $request->setUid($prompt['uid']);
             $request->setInput($this->generateMessages($prompt));
-            $request->setOutput($this->sendMessage($request->getInput()));
+            $request->setOutput($this->sendMessage($request->getInput())['content']);
+            $request->setOutputData($this->sendMessage($request->getInput())['data']);
             $this->requestCollection->addPromptRequest($request);
         }
     }
@@ -61,6 +62,11 @@ class WebPromptCreator
     public function getResponseOfRequestByUid(string $uid): string
     {
         return $this->requestCollection->findElementByUid($uid)->getOutput();
+    }
+
+    public function getResponseDataOfRequestByUid(string $uid): array
+    {
+        return $this->requestCollection->findElementByUid($uid)->getOutputData();
     }
 
     private function generateMessages(array $request): array
@@ -142,7 +148,7 @@ class WebPromptCreator
         return $newLines;
     }
 
-    private function sendMessage(array $messages): ?string
+    private function sendMessage(array $messages): ?array
     {
         $conversation = [];
         foreach($messages as $message) {
