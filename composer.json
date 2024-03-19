@@ -2,7 +2,7 @@
     "name": "websystems/web-prompt-creator-bundle",
     "description": "OpenAI prompt creator for Symfony",
     "type": "symfony-bundle",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "license": "MIT",
     "autoload": {
         "psr-4": {

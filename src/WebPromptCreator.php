@@ -12,7 +12,7 @@ class WebPromptCreator
 {
     private ?AiInterface $aiService = null;
     private ?PromptInputOptionsInterface $inputData = null;
-    private ?array $promptData = null;
+    private array $promptData = [];
     private ?PromptRequestCollection $requestCollection = null;
 
     public function __construct(?AiInterface $aiService = null)
@@ -172,5 +172,18 @@ class WebPromptCreator
         }
 
         return $conversation;
+    }
+
+    public function showDummyCoversation(string $responseText = "This is a dummy response"): void
+    {
+        $this->requestCollection = new PromptRequestCollection();
+
+        foreach($this->promptData as $prompt) {
+            $request = new PromptRequest();
+            $request->setUid($prompt['uid']);
+            $request->setInput($this->generateMessages($prompt));
+            $request->setOutput($responseText);
+            $this->requestCollection->addPromptRequest($request);
+        }
     }
 }
