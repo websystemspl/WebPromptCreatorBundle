@@ -21,7 +21,7 @@ composer require websystems/web-prompt-creator-bundle
 
 Create service which will override input data
 $options will be used in input widget and values will be updated before send to AI
-```sh
+```php
 namespace App\Service;
 
 use Websystems\WebPromptCreatorBundle\PromptInputOptions\PromptInputOptions;
@@ -42,7 +42,7 @@ class PromptInputOptionsService extends PromptInputOptions
 
 Configure EasyAdmin crud controller and add service
 Add PromptField and set custom option named "input" with service options
-```sh
+```php
     public function __construct(
         ...
         private PromptInputOptionsService $promptInputOptionsService,
@@ -65,7 +65,7 @@ arguments:
 - element_id - field id
 - element_name - field name
 - input - "input" data from your service
-```sh
+```twig
 {% block _Prompt_prompt_widget %}
     <div {{ vue_component('WebPromptCreator', {
         'element_hidden': true,
@@ -78,7 +78,7 @@ arguments:
 {% endblock %}
 ```
 Add form themes to crud controller
-```sh
+```php
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
@@ -87,7 +87,7 @@ Add form themes to crud controller
     }   
 ```
 Configure assets by adding js and css files
-```sh
+```php
     ...
     use Websystems\WebPromptCreatorBundle\Asset\AssetPackage;
     ...
@@ -118,7 +118,7 @@ WPC creates JSON data which is stored in database.
 There are functions to handle this JSON and process to final response.
 
 If you have an API class which is used to send requests to AI it must implements interface:
-```ssh
+```php
 ...
 use Websystems\WebPromptCreatorBundle\AiInterface;
 
@@ -142,7 +142,7 @@ class OpenAi implements AiInterface
 
 
 If you want to process for example in your controller, you must use dependency injection to get services:
-```ssh
+```php
     ...
     public function __construct(
         private OpenAi $openAi,
@@ -154,7 +154,7 @@ If you want to process for example in your controller, you must use dependency i
 ```
 And add important things to your webPromptCreator instance
 createRequests() - will send requests to ai and process all
-```ssh
+```php
         $json = $someRepository->find(...)
         $contentToProcess = "Some content to process";
 
@@ -166,25 +166,28 @@ createRequests() - will send requests to ai and process all
         $this->webPromptCreator->createRequests();
 ```
 To read final response
-```ssh
+```php
 $this->webPromptCreator->getFinalResponse();
 ```
 To read response by UID of request:
-```ssh
+```php
 getResponseOfRequestByUid($uid)
 ```
 To read response data by UID of request widget:
-```ssh
+```php
 getResponseDataOfRequestByUid($uid)
 ```
 
-```ssh
+```php
 getRequestCollection()
 getPromptRequestCollectionAsArrayConversation(bool $withAnswers = false)
 ```
 
 showDummyCoversation is like createRequests() but will not send requests to AI and create PromptRequestCollection with dummy data
-```ssh
+```php
 showDummyCoversation(string $responseText = "This is a dummy response")
 ```
+
+
+
 
