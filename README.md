@@ -113,4 +113,78 @@ Configure assets by adding js and css files
 ```
 
 ## Usage
-documentation in progress...
+
+WPC creates JSON data which is stored in database.
+There are functions to handle this JSON and process to final response.
+
+If you have an API class which is used to send requests to AI it must implements interface:
+```ssh
+...
+use Websystems\WebPromptCreatorBundle\AiInterface;
+
+class OpenAi implements AiInterface
+{
+    public function supports($type): bool
+    {
+        return is_a($this, $type, true);
+    }   
+
+    public function send(array $messages): ?array
+    {
+        ...
+        
+        return [
+            'content' => $response['choices'][0]['message']['content'],
+            'data' => $response,
+        ];        
+    }
+```
+
+
+If you want to process for example in your controller, you must use dependency injection to get services:
+```ssh
+    ...
+    public function __construct(
+        private OpenAi $openAi,
+        private WebPromptCreator $webPromptCreator,
+        private PromptInputOptionsService $promptInputOptionsService,
+    )
+    {
+    }
+```
+And add important things to your webPromptCreator instance
+createRequests() - will send requests to ai and process all
+```ssh
+        $json = $someRepository->find(...)
+        $contentToProcess = "Some content to process";
+
+        $this->webPromptCreator->setPromptData(json_decode($json, true));
+        $this->webPromptCreator->setAiService($this->openAi);
+        $this->promptInputOptionsService->updateOptionByKey('input_content', $contentToProcess);
+        ...
+        $this->webPromptCreator->setInputData($this->promptInputOptionsService);
+        $this->webPromptCreator->createRequests();
+```
+To read final response
+```ssh
+$this->webPromptCreator->getFinalResponse();
+```
+To read response by UID of request:
+```ssh
+getResponseOfRequestByUid($uid)
+```
+To read response data by UID of request widget:
+```ssh
+getResponseDataOfRequestByUid($uid)
+```
+
+```ssh
+getRequestCollection()
+getPromptRequestCollectionAsArrayConversation(bool $withAnswers = false)
+```
+
+showDummyCoversation is like createRequests() but will not send requests to AI and create PromptRequestCollection with dummy data
+```ssh
+showDummyCoversation(string $responseText = "This is a dummy response")
+```
+
