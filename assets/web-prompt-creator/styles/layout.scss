@@ -39,6 +39,10 @@
     &__body {
         display: grid;
         grid-template-columns: 250px 1fr;
+
+        @media (max-width: 900px) {
+            grid-template-columns: 1fr;
+        }        
     }
 
     &__header {
@@ -195,15 +199,17 @@
     min-width: 100px;
     min-height: 200px;
     width: 400px;
+    max-width: calc(100% - 20px);
+    max-height: calc(100% - 100px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     z-index: 1000;
+    min-height: 350px;
     
-
     &__header {
         display: flex;
         align-items: center;
@@ -233,7 +239,11 @@
     &__body {
         padding: 20px;
         background: var(--background);
-        overflow-y: auto;
+    }
+
+    &__scrollable {
+        overflow-y: scroll;
+        max-height: 300px;
     }
 
     &__footer {
@@ -317,6 +327,7 @@
     width: 100%;
     flex-direction: column;
     gap: 20px;
+    padding: 20px;
 
     &__request {
         padding: 10px;

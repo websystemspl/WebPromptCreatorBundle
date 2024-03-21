@@ -113,22 +113,24 @@
         </Teleport>         
         <Teleport to="body">
             <SettingsModal :width="1000" :modalTitle="'Conversation view'" :show="showModalConversation" @update="(e) => {showModalConversation = false}">
-                <div class="wpc-conversation">
-                    <div class="wpc-conversation__request" v-for="request in contentStore.content">
-                        <div class="wpc-conversation__request-title">#{{ request.uid }} {{ (request.settings.title) ? " - "+request.settings.title : '' }}</div>
-                        <div class="wpc-conversation__widget" v-for="widget in request.widgets">
-                            <div class="wpc-conversation__role"><span>Role:</span> {{ widget.settings.role }}</div>
-                            <div v-if="!widget.settings.widgets">
-                                <div class="wpc-conversation__content" v-if="widget.settings.content"><span>Content:</span> {{ widget.settings.content }}</div>
-                                <div class="wpc-conversation__content" v-if="widget.settings.relation"><span>Content:</span> [RESPONSE OF RELATION - {{ widget.settings.relation }}]</div>
-                                <div class="wpc-conversation__content" v-if="widget.settings.input"><span>Content:</span> [INPUT DATA - {{ widget.settings.input }} ]</div>
+                <div class="settings-modal__scrollable">
+                    <div class="wpc-conversation">
+                        <div class="wpc-conversation__request" v-for="request in contentStore.content">
+                            <div class="wpc-conversation__request-title">#{{ request.uid }} {{ (request.settings.title) ? " - "+request.settings.title : '' }}</div>
+                            <div class="wpc-conversation__widget" v-for="widget in request.widgets">
+                                <div class="wpc-conversation__role"><span>Role:</span> {{ widget.settings.role }}</div>
+                                <div v-if="!widget.settings.widgets">
+                                    <div class="wpc-conversation__content" v-if="widget.settings.content"><span>Content:</span> {{ widget.settings.content }}</div>
+                                    <div class="wpc-conversation__content" v-if="widget.settings.relation"><span>Content:</span> [RESPONSE OF RELATION - {{ widget.settings.relation }}]</div>
+                                    <div class="wpc-conversation__content" v-if="widget.settings.input"><span>Content:</span> [INPUT DATA - {{ widget.settings.input }} ]</div>
+                                </div>
+                                <div v-if="widget.widgets">
+                                    <ConversationWidgets :widgets="widget.widgets" />
+                                </div>
                             </div>
-                            <div v-if="widget.widgets">
-                                <ConversationWidgets :widgets="widget.widgets" />
-                            </div>
-                        </div>
-                        <div class="wpc-conversation__response">[RESPONSE OF REQUEST]</div>
-                    </div>            
+                            <div class="wpc-conversation__response">[RESPONSE OF REQUEST]</div>
+                        </div>            
+                    </div>
                 </div>
             </SettingsModal>
         </Teleport>         

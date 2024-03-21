@@ -10,7 +10,7 @@
             <div class="widget__info">
                 <span v-if="props.parent === null" class="wpc-badge wpc-badge--primary">{{ props.elementData.settings.role }}</span>
                 <button class="button button--empty" type="button" @click="props.elementData.openToggle = !props.elementData.openToggle">
-                    <i :class="(props.elementData.openToggle) ? 'bi bi-chevron-down' : 'bi bi-chevron-up'"></i>
+                    <i :class="(props.elementData.openToggle) ? 'bi bi-chevron-up' : 'bi bi-chevron-down'"></i>
                 </button>                 
             </div>
         </div>

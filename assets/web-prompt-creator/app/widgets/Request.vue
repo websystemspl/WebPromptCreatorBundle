@@ -9,7 +9,7 @@
             <div class="widget__title"><i :class="props.elementData.icon"></i> {{ props.elementData.name }} {{ (props.elementData.settings.title) ? "("+props.elementData.settings.title+")" : "" }}</div>
             <div class="widget__info">
                 <button class="button button--empty" type="button" @click="props.elementData.openToggle = !props.elementData.openToggle">
-                    <i :class="(props.elementData.openToggle) ? 'bi bi-chevron-down' : 'bi bi-chevron-up'"></i>
+                    <i :class="(props.elementData.openToggle) ? 'bi bi-chevron-up' : 'bi bi-chevron-down'"></i>
                 </button>                
             </div>
         </div>
