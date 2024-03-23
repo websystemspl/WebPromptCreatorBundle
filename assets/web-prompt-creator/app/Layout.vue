@@ -75,13 +75,13 @@
                 >
                     <template #item="{ element, index }">
                         <div class="">
-                            <component :elementData="element" :is="element.component.object"></component>    
+                            <component :elementData="element" :is="contentStore.createComponent(element.component.name)"></component>    
                         </div>
                     </template>
                 </draggable>      
             </div>
         </div>
-        <Teleport to="body">
+        <Teleport to="body" v-if="showModal">
             <SettingsModal :modalTitle="'Global settings'" :show="showModal" @update="(e) => {showModal = false}">
                 <div class="wpc-form wpc-form--full-width">
                     <div class="wpc-form__field">
@@ -99,7 +99,7 @@
                 </div>
             </SettingsModal>
         </Teleport> 
-        <Teleport to="body">
+        <Teleport to="body" v-if="showModalCode">
             <SettingsModal :width="1000" :modalTitle="'JSON Code'" :show="showModalCode" @update="(e) => {showModalCode = false}">
                 <div class="wpc-form wpc-form--full-width">
                     <div class="wpc-form__field">
@@ -111,7 +111,7 @@
                 </div>
             </SettingsModal>
         </Teleport>         
-        <Teleport to="body">
+        <Teleport to="body"  v-if="showModalConversation">
             <SettingsModal :width="1000" :modalTitle="'Conversation view'" :show="showModalConversation" @update="(e) => {showModalConversation = false}">
                 <div class="settings-modal__scrollable">
                     <div class="wpc-conversation">
@@ -120,7 +120,7 @@
                             <div class="wpc-conversation__widget" v-for="widget in request.widgets">
                                 <div class="wpc-conversation__role"><span>Role:</span> {{ widget.settings.role }}</div>
                                 <div v-if="!widget.settings.widgets">
-                                    <div class="wpc-conversation__content" v-if="widget.settings.content"><span>Content:</span> {{ widget.settings.content }}</div>
+                                    <div class="wpc-conversation__content" v-if="widget.settings.content"><span>Content:</span> <span v-html="nl2br(widget.settings.content)"></span></div>
                                     <div class="wpc-conversation__content" v-if="widget.settings.relation"><span>Content:</span> [RESPONSE OF RELATION - {{ widget.settings.relation }}]</div>
                                     <div class="wpc-conversation__content" v-if="widget.settings.input"><span>Content:</span> [INPUT DATA - {{ widget.settings.input }} ]</div>
                                 </div>
@@ -188,10 +188,6 @@
             found = widgets.widgets.find((element) => element.id === id);
         }
         let elem = JSON.parse(JSON.stringify(found));
-        const component = markRaw(defineAsyncComponent(() => {
-          return import(`./widgets/${found.component.name}.vue`);
-        }));
-        elem.component.object = component;
         elem.uid = contentStore.generateUid();
         return elem;
     }
@@ -205,5 +201,10 @@
             pbLayout.value.classList.toggle('pb-layout--fullscreen');
             isFullScreen.value = true;
         }
+    }
+
+    function nl2br(str)
+    {
+        return str.replace(/(?:\r\n|\r|\n)/g, '<br>');
     }
 </script>

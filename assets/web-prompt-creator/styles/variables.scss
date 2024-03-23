@@ -9,6 +9,22 @@ $text: #000;
 $background: #ffffff;
 
 body {
+    --main: #6c2eb9;
+    --grey: #4c5865;
+    --green: #00c3a9;
+    --blue: #0583d4;
+    --danger: #ff4d4f;
+    --primary: --main;
+    --form_input_background: #f5f5f5;
+    --left-widget: #f5f5f5;
+    --right-widget: #ffffff;
+    --text: #000;
+    --background: #ffffff;     
+    --border-color: #ddd;     
+    --border-dashed: #ddd;   
+    --widget-shadow: rgba(0, 0, 0, 0.1);
+    --widget-border: transparent;
+
     &.ea-dark-scheme {
         --main: #6c2eb9;
         --grey: #4c5865;
@@ -23,6 +39,8 @@ body {
         --background: #0a0a0a;     
         --border-color: #404040;   
         --border-dashed: #000;   
+        --widget-shadow: rgba(0, 0, 0, 0.6);
+        --widget-border: #404040;
     }
     &.ea-light-scheme {
         --main: #6c2eb9;
@@ -38,5 +56,7 @@ body {
         --background: #ffffff;     
         --border-color: #ddd;     
         --border-dashed: #ddd;   
+        --widget-shadow: rgba(0, 0, 0, 0.1);
+        --widget-border: transparent;
     }
 }

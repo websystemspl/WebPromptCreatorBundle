@@ -7,6 +7,13 @@ export const contentStore = reactive({
     this.removeElementByUid(contentStore.content, uid)
   },
 
+  createComponent(name)
+  {
+      return markRaw(defineAsyncComponent(() => {
+        return import(`./../widgets/${name}.vue`);
+      }));
+  },
+
   removeElementByUid(elements, uidToRemove) {
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i];
@@ -24,12 +31,12 @@ export const contentStore = reactive({
 
   recursiveReplaceComponent(elements) {
     elements.forEach(element => {
-      if (element.component) {
-        const component = markRaw(defineAsyncComponent(() => {
-          return import(`./../widgets/${element.component.name}.vue`);
-        }));
-        element.component.object = component;
+      if(element.component.object) {
+        element.component = {
+          name: element.component.name
+        }
       }
+
       if (element.widgets && element.widgets.length) {
         this.recursiveReplaceComponent(element.widgets);
       }
@@ -125,10 +132,6 @@ export const contentStore = reactive({
 
   cloneElement(element) {
     let elem = JSON.parse(JSON.stringify(element));
-    const component = markRaw(defineAsyncComponent(() => {
-      return import(`./../widgets/${element.component.name}.vue`);
-    }));
-    elem.component.object = component;
     elem.uid = this.generateUid();
     return elem;
   },
@@ -137,7 +140,7 @@ export const contentStore = reactive({
     let elem = this.cloneElement(element);
     if (elem.widgets && elem.widgets.length) {
       elem.widgets = elem.widgets.map(widget => {
-        return this.cloneElement(widget);
+        return this.cloneElementWithWidgets(widget);
       });
     }
     return elem;

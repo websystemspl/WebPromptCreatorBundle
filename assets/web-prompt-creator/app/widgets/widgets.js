@@ -5,7 +5,6 @@ export default {
             uid: null,
             component: {
                 name: "Request",
-                object: null,
             },
             name: "Request",
             icon: "bi bi-send-plus-fill",
@@ -23,7 +22,6 @@ export default {
             uid: null,
             component: {
                 name: "Text",
-                object: null,
             },
             name: "Text",
             icon: "bi bi-textarea-t",
@@ -42,7 +40,6 @@ export default {
             uid: null,
             component: {
                 name: "Compose",
-                object: null,
             },
             name: "Compose",
             icon: "bi bi-collection-fill",
@@ -61,7 +58,6 @@ export default {
             uid: null,
             component: {
                 name: "Input",
-                object: null,
             },
             name: "Input",
             icon: "bi bi-box-arrow-in-down",
@@ -80,7 +76,6 @@ export default {
             uid: null,
             component: {
                 name: "Relation",
-                object: null,
             },
             name: "Relation",
             icon: "bi bi-circle-square",

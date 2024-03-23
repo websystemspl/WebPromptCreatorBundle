@@ -26,7 +26,7 @@
                     <div
                         class=""
                     >
-                        <component :elementData="element" :is="element.component.object"></component>    
+                        <component :elementData="element" :is="contentStore.createComponent(element.component.name)"></component>    
                     </div>
                 </template>
             </draggable> 

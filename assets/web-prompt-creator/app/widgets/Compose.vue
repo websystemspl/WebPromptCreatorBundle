@@ -24,7 +24,7 @@
             >
                 <template #item="{ element, index }">
                     <div>
-                        <component :elementData="element" :is="element.component.object" :parent="props.elementData"></component>    
+                        <component :elementData="element" :is="contentStore.createComponent(element.component.name)" :parent="props.elementData"></component>    
                     </div>
                 </template>
             </draggable>  

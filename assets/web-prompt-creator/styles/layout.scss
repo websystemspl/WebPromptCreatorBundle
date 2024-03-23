@@ -111,7 +111,9 @@
     margin-bottom: 10px;
     background: var(--right-widget);
     display: block;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);    
+    box-shadow: 0 0 5px var(--widget-shadow);    
+    border: 1px var(--widget-border) solid;
+    border-radius: 5px;
 
     &__header {
         display: flex;
@@ -352,11 +354,8 @@
         }
     }
 
-    &__content {
-        
-        & span {
-            font-weight: 700;
-        }
+    &__role {
+        font-weight: 700;
     }
 
     &__response {
