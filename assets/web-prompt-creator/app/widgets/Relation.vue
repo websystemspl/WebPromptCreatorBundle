@@ -1,6 +1,6 @@
 <template>
-    <div class="widget">
-        <div class="widget__header widget__header--grey">
+    <div class="widget" :id="props.elementData.uid">
+        <div :class="['widget__header', 'widget__header--grey', props.elementData.color]">
             <div class="widget__actions">
                 <i class="bi bi-gear-fill open" @click="(e) => {showModal = true}"></i>
                 <i class="bi bi-copy pointer" @click="contentStore.findAndDuplicateByUID(props.elementData.uid)"></i>

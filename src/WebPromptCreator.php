@@ -3,6 +3,7 @@
 namespace Websystems\WebPromptCreatorBundle;
 
 use Websystems\WebPromptCreatorBundle\AiInterface;
+use Websystems\WebPromptCreatorBundle\PromptContext\PromptContext;
 use Websystems\WebPromptCreatorBundle\PromptMessage\PromptMessage;
 use Websystems\WebPromptCreatorBundle\PromptRequest\PromptRequest;
 use Websystems\WebPromptCreatorBundle\PromptInputOptions\PromptInputOptionsInterface;
@@ -12,6 +13,7 @@ class WebPromptCreator
 {
     private ?AiInterface $aiService = null;
     private ?PromptInputOptionsInterface $inputData = null;
+    private ?PromptContext $context = null;
     private array $promptData = [];
     private ?PromptRequestCollection $requestCollection = null;
 
@@ -30,6 +32,16 @@ class WebPromptCreator
         $this->inputData = $inputData;
     }
 
+    public function getContext(): ?PromptContext
+    {
+        return $this->context;
+    }
+
+    public function setContext(?PromptContext $context): void
+    {
+        $this->context = $context;
+    }
+
     public function setPromptData(?array $promptData): void
     {
         $this->promptData = $promptData;
@@ -43,8 +55,8 @@ class WebPromptCreator
             $request = new PromptRequest();
             $request->setUid($prompt['uid']);
             $request->setInput($this->generateMessages($prompt));
-            $request->setOutput($this->sendMessage($request->getInput())['content']);
-            $request->setOutputData($this->sendMessage($request->getInput())['data']);
+            //$request->setOutput($this->sendMessage($request->getInput())['content']);
+            //$request->setOutputData($this->sendMessage($request->getInput())['data']);
             $this->requestCollection->addPromptRequest($request);
         }
     }
@@ -52,6 +64,11 @@ class WebPromptCreator
     public function getRequestCollection(): ?PromptRequestCollection
     {
         return $this->requestCollection;
+    }
+
+    public function setRequestCollection(PromptRequestCollection $requestCollection): void
+    {
+        $this->requestCollection = $requestCollection;
     }
 
     public function getFinalResponse(): string
@@ -76,6 +93,16 @@ class WebPromptCreator
         foreach($request['widgets'] as $widget) {
             $content = "";
 
+            if(!isset($widget['widgets']) && isset($widget['settings']['context'])) {
+                $contextConversation = $this->context->all();
+                foreach($contextConversation as $contextConversationMessage) {
+                    $promptMessage = new PromptMessage();
+                    $promptMessage->setRole($contextConversationMessage->getRole());
+                    $promptMessage->setContent($contextConversationMessage->getContent());
+                    $messages[] = $promptMessage;
+                }
+            }
+
             if(isset($widget['widgets'])) {
                 $content = $this->generateConcatenatedContentFromChildWidgets($widget);
             }
@@ -92,10 +119,12 @@ class WebPromptCreator
                 $content = $this->inputData->getOptionByKey($widget['settings']['input']);
             }            
 
-            $promptMessage = new PromptMessage();
-            $promptMessage->setRole($widget['settings']['role']);
-            $promptMessage->setContent($content);
-            $messages[] = $promptMessage;
+            if(!isset($widget['settings']['context'])) {
+                $promptMessage = new PromptMessage();
+                $promptMessage->setRole($widget['settings']['role']);
+                $promptMessage->setContent($content);
+                $messages[] = $promptMessage;
+            }
         }
 
         return $messages;

@@ -22,6 +22,7 @@
                 </div>
             </div>
             <div class="pb-layout__header-actions">
+                <!-- <i class="bi bi-stack" @click="(e) => {showModalLayers = true}"></i> -->
                 <i class="bi bi-gear-fill open" @click="(e) => {showModal = true}"></i>
                 <i class="bi bi-filetype-json open" @click="(e) => {showModalCode = true}"></i>
                 <i class="bi bi-view-list open" @click="(e) => {showModalConversation = true}"></i>
@@ -111,6 +112,40 @@
                 </div>
             </SettingsModal>
         </Teleport>         
+        <Teleport to="body" v-if="showModalLayers">
+            <SettingsModal :modalTitle="'Layers'" :show="showModalLayers" @update="(e) => {showModalLayers = false}">
+                <div style="overflow-y: auto; max-height: 550px; padding-right: 10px;">
+                    <draggable 
+                        class="list-group" 
+                        :list="contentStore.content"
+                        itemKey="uid"
+                        :group="containers"
+                        :sort="true"
+                    >
+                        <template #item="{ element }">
+                            <div>
+                                <div :class="['pb-layer', 'layer-item', element.color]">
+                                    <div class="wpc-layer">
+                                        <div class="wpc-layer__left">
+                                            <i :class="element.icon"></i> {{ element.name }} {{ element.settings.title }} 
+                                        </div>
+                                        <div class="wpc-layer__right">
+                                            <span @click="scrollTo(element.uid)">#{{ element.uid }}</span>
+                                            <button class="button button--empty" type="button" @click="element.openToggle = !element.openToggle">
+                                                <i :class="(element.openToggle) ? 'bi bi-chevron-up' : 'bi bi-chevron-down'"></i>
+                                            </button>                                             
+                                        </div>
+                                    </div>
+                                </div>
+                                <Transition>
+                                    <Layers :indent="'20px'" :widgets="element.widgets" v-if="element.openToggle" />
+                                </Transition>
+                            </div>
+                        </template>
+                    </draggable>
+                </div>
+            </SettingsModal>
+        </Teleport>         
         <Teleport to="body"  v-if="showModalConversation">
             <SettingsModal :width="1000" :modalTitle="'Conversation view'" :show="showModalConversation" @update="(e) => {showModalConversation = false}">
                 <div class="settings-modal__scrollable">
@@ -143,6 +178,7 @@
     import draggable from "vuedraggable";
     import {default as download} from 'downloadjs';
     import SettingsModal from './SettingsModal.vue';
+    import Layers from './Layers.vue';
     import ConversationWidgets from './ConversationWidgets.vue';
     import widgets from "./widgets/widgets.js"
 
@@ -153,6 +189,7 @@
     const showModal = ref(false);   
     const showModalCode = ref(false);
     const showModalConversation = ref(false);
+    const showModalLayers = ref(false);
     const pbLayout = ref(null);
     const isFullScreen = ref(false);
 
@@ -160,6 +197,12 @@
     {
         const datetime = new Date().toISOString().replace(/[-:]/g, '_').replace('T', '_').split('.')[0];
         download(JSON.stringify(contentStore.content), 'template_' + datetime + '.json', 'text/plain')
+    }
+
+    function scrollTo(uid)
+    {
+        const el = document.getElementById(uid);
+        el.scrollIntoView({behavior: "smooth", block: "start"});
     }
 
     function importJson()

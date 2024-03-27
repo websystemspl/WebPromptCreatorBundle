@@ -9,6 +9,7 @@ export default {
             name: "Request",
             icon: "bi bi-send-plus-fill",
             type: "container",
+            color: "color-blue",
             widgets: [],
             settings: {
                 title: "",
@@ -26,6 +27,7 @@ export default {
             name: "Text",
             icon: "bi bi-textarea-t",
             type: "widget",
+            color: "color-grey",
             settings: {
                 role: "user",
                 content: "",
@@ -44,6 +46,7 @@ export default {
             name: "Compose",
             icon: "bi bi-collection-fill",
             type: "widget",
+            color: "color-green",
             widgets: [],
             settings: {
                 role: "user",
@@ -62,6 +65,7 @@ export default {
             name: "Input",
             icon: "bi bi-box-arrow-in-down",
             type: "widget",
+            color: "color-grey",
             settings: {
                 role: "user",
                 input: "",
@@ -80,11 +84,27 @@ export default {
             name: "Relation",
             icon: "bi bi-circle-square",
             type: "widget",
+            color: "color-grey",
             settings: {
                 role: "user",
                 relation: "",
                 new_lines_before: 0,
                 new_lines_after: 0,
+                title: "",
+            },
+            openToggle: true,
+        },
+        { 
+            id: "context",
+            uid: null,
+            component: {
+                name: "Context",
+            },
+            name: "Context",
+            icon: "bi bi-layer-backward",
+            type: "widget",
+            color: "color-grey",
+            settings: {
                 title: "",
             },
             openToggle: true,

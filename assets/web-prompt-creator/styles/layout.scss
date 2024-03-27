@@ -107,6 +107,27 @@
     }
 }
 
+.layer-item {
+    margin: 5px 0;
+}
+
+.pb-layer {
+    padding: 3px 20px;
+    background-color: var(--left-widget);
+    display: flex;
+    gap: 10px;
+    border-radius: 5px;
+    cursor: grab;
+
+    &:active {
+        cursor: grabbing;
+    }
+
+    & i {
+        color: var(--text);
+    }
+}
+
 .widget {
     margin-bottom: 10px;
     background: var(--right-widget);
@@ -413,3 +434,37 @@
     }
 }
 
+.wpc-layer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__left {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        color: white;
+
+        & i {
+            color: white;
+        }        
+    }   
+
+    &__right {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        color: white;
+
+        & i {
+            color: white;
+        } 
+
+        & span {
+            cursor: pointer;
+        }
+    }
+}
