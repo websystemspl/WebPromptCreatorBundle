@@ -93,7 +93,7 @@ class WebPromptCreator
         foreach($request['widgets'] as $widget) {
             $content = "";
 
-            if(!isset($widget['widgets']) && isset($widget['settings']['context'])) {
+            if(!isset($widget['widgets']) && $widget['id'] === "context") {
                 $contextConversation = $this->context->all();
                 foreach($contextConversation as $contextConversationMessage) {
                     $promptMessage = new PromptMessage();
@@ -119,7 +119,7 @@ class WebPromptCreator
                 $content = $this->inputData->getOptionByKey($widget['settings']['input']);
             }            
 
-            if(!isset($widget['settings']['context'])) {
+            if($widget['id'] !== "context") {
                 $promptMessage = new PromptMessage();
                 $promptMessage->setRole($widget['settings']['role']);
                 $promptMessage->setContent($content);
