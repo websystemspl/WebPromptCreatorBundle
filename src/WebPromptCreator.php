@@ -55,8 +55,8 @@ class WebPromptCreator
             $request = new PromptRequest();
             $request->setUid($prompt['uid']);
             $request->setInput($this->generateMessages($prompt));
-            //$request->setOutput($this->sendMessage($request->getInput())['content']);
-            //$request->setOutputData($this->sendMessage($request->getInput())['data']);
+            $request->setOutput($this->sendMessage($request->getInput())['content']);
+            $request->setOutputData($this->sendMessage($request->getInput())['data']);
             $this->requestCollection->addPromptRequest($request);
         }
     }
