@@ -4,11 +4,11 @@ namespace Websystems\WebPromptCreatorBundle\PromptContext;
 
 class PromptContextMessage
 {
-    private int $id;
+    private string $id;
     private ?string $role = null;
     private ?string $content = null;
 
-    public function __construct(int $id, ?string $role, ?string $content = null)
+    public function __construct(string $id, ?string $role, ?string $content = null)
     {
         $this->id = $id;
         $this->role = $role;
@@ -35,12 +35,12 @@ class PromptContextMessage
         $this->content = $content;
     }
 
-    public function getId(): int
+    public function getId(): string
     {
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function setId(string $id): self
     {
         $this->id = $id;
 

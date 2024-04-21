@@ -19,7 +19,7 @@ class PromptContext
         return $this->context;
     }
 
-    public function find(int $id): ?PromptContextMessage
+    public function find(string $id): ?PromptContextMessage
     {
         return $this->context[$id] ?? null;
     }
