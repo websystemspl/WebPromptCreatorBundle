@@ -6,8 +6,8 @@ use Websystems\WebPromptCreatorBundle\AiInterface;
 use Websystems\WebPromptCreatorBundle\PromptContext\PromptContext;
 use Websystems\WebPromptCreatorBundle\PromptMessage\PromptMessage;
 use Websystems\WebPromptCreatorBundle\PromptRequest\PromptRequest;
-use Websystems\WebPromptCreatorBundle\PromptInputOptions\PromptInputOptionsInterface;
 use Websystems\WebPromptCreatorBundle\PromptRequest\PromptRequestCollection;
+use Websystems\WebPromptCreatorBundle\PromptInputOptions\PromptInputOptionsInterface;
 
 class WebPromptCreator
 {
@@ -55,8 +55,9 @@ class WebPromptCreator
             $request = new PromptRequest();
             $request->setUid($prompt['uid']);
             $request->setInput($this->generateMessages($prompt));
-            $request->setOutput($this->sendMessage($request->getInput())['content']);
-            $request->setOutputData($this->sendMessage($request->getInput())['data']);
+            $messageResponse = $this->sendMessage($request->getInput());
+            $request->setOutput($messageResponse['content']);
+            $request->setOutputData($messageResponse['data']);
             $this->requestCollection->addPromptRequest($request);
         }
     }
