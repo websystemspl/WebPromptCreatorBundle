@@ -75,7 +75,7 @@ class WebPromptCreator
     public function getFinalResponse(): string
     {
         return $this->requestCollection->getFinalRequest()->getOutput();
-    }    
+    }
 
     public function getResponseOfRequestByUid(string $uid): string
     {
@@ -118,7 +118,7 @@ class WebPromptCreator
 
             if(!isset($widget['widgets']) && isset($widget['settings']['input'])) {
                 $content = $this->inputData->getOptionByKey($widget['settings']['input']);
-            }            
+            }
 
             if($widget['id'] !== "context") {
                 $promptMessage = new PromptMessage();
@@ -141,25 +141,25 @@ class WebPromptCreator
             }
 
             if(!isset($childWidget['widgets']) && isset($childWidget['settings']['relation'])) {
-                $content .= 
-                    $this->addNewLines($childWidget['settings']['new_lines_before']) . 
-                    $this->requestCollection->findElementByUid($childWidget['settings']['relation'])->getOutput() . 
+                $content .=
+                    $this->addNewLines($childWidget['settings']['new_lines_before']) .
+                    $this->requestCollection->findElementByUid($childWidget['settings']['relation'])->getOutput() .
                     $this->addNewLines($childWidget['settings']['new_lines_after'])
                 ;
             }
 
             if(!isset($childWidget['widgets']) && isset($childWidget['settings']['input'])) {
-                $content .= 
-                    $this->addNewLines($childWidget['settings']['new_lines_before']) . 
+                $content .=
+                    $this->addNewLines($childWidget['settings']['new_lines_before']) .
                     $this->inputData->getOptionByKey($childWidget['settings']['input']) .
                     $this->addNewLines($childWidget['settings']['new_lines_after'])
                 ;
             }
 
             if(!isset($childWidget['widgets']) && isset($childWidget['settings']['content'])) {
-                $content .= 
-                    $this->addNewLines($childWidget['settings']['new_lines_before']) . 
-                    $childWidget['settings']['content'] . 
+                $content .=
+                    $this->addNewLines($childWidget['settings']['new_lines_before']) .
+                    $childWidget['settings']['content'] .
                     $this->addNewLines($childWidget['settings']['new_lines_after'])
                 ;
             }

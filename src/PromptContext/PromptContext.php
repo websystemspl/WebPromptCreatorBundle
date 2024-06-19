@@ -7,7 +7,7 @@ use Websystems\WebPromptCreatorBundle\PromptContext\PromptContextMessage;
 
 class PromptContext
 {
-    protected ?array $context = null;
+    protected array $context = [];
 
     public function add(PromptContextMessage $message)
     {
@@ -31,6 +31,6 @@ class PromptContext
 
     public function clear(): void
     {
-        $this->context = null;
+        $this->context = [];
     }
 }
