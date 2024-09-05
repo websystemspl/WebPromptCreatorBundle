@@ -16,6 +16,7 @@ class WebPromptCreator
     private ?PromptContext $context = null;
     private array $promptData = [];
     private ?PromptRequestCollection $requestCollection = null;
+    private ?int $error = null;
 
     public function __construct(?AiInterface $aiService = null)
     {
@@ -56,6 +57,12 @@ class WebPromptCreator
             $request->setUid($prompt['uid']);
             $request->setInput($this->generateMessages($prompt));
             $messageResponse = $this->sendMessage($request->getInput());
+
+            if(isset($messageResponse['error'])) {
+                $this->error = intval($messageResponse['error']);
+                return;
+            }
+
             $request->setOutput($messageResponse['content']);
             $request->setOutputData($messageResponse['data']);
             $this->requestCollection->addPromptRequest($request);
@@ -75,7 +82,7 @@ class WebPromptCreator
     public function getFinalResponse(): string
     {
         return $this->requestCollection->getFinalRequest()->getOutput();
-    }
+    }    
 
     public function getResponseOfRequestByUid(string $uid): string
     {
@@ -118,7 +125,7 @@ class WebPromptCreator
 
             if(!isset($widget['widgets']) && isset($widget['settings']['input'])) {
                 $content = $this->inputData->getOptionByKey($widget['settings']['input']);
-            }
+            }            
 
             if($widget['id'] !== "context") {
                 $promptMessage = new PromptMessage();
@@ -141,25 +148,25 @@ class WebPromptCreator
             }
 
             if(!isset($childWidget['widgets']) && isset($childWidget['settings']['relation'])) {
-                $content .=
-                    $this->addNewLines($childWidget['settings']['new_lines_before']) .
-                    $this->requestCollection->findElementByUid($childWidget['settings']['relation'])->getOutput() .
+                $content .= 
+                    $this->addNewLines($childWidget['settings']['new_lines_before']) . 
+                    $this->requestCollection->findElementByUid($childWidget['settings']['relation'])->getOutput() . 
                     $this->addNewLines($childWidget['settings']['new_lines_after'])
                 ;
             }
 
             if(!isset($childWidget['widgets']) && isset($childWidget['settings']['input'])) {
-                $content .=
-                    $this->addNewLines($childWidget['settings']['new_lines_before']) .
+                $content .= 
+                    $this->addNewLines($childWidget['settings']['new_lines_before']) . 
                     $this->inputData->getOptionByKey($childWidget['settings']['input']) .
                     $this->addNewLines($childWidget['settings']['new_lines_after'])
                 ;
             }
 
             if(!isset($childWidget['widgets']) && isset($childWidget['settings']['content'])) {
-                $content .=
-                    $this->addNewLines($childWidget['settings']['new_lines_before']) .
-                    $childWidget['settings']['content'] .
+                $content .= 
+                    $this->addNewLines($childWidget['settings']['new_lines_before']) . 
+                    $childWidget['settings']['content'] . 
                     $this->addNewLines($childWidget['settings']['new_lines_after'])
                 ;
             }
@@ -221,5 +228,15 @@ class WebPromptCreator
             $request->setOutput($responseText);
             $this->requestCollection->addPromptRequest($request);
         }
+    }
+
+    public function hasError(): bool
+    {
+        return null !== $this->error;
+    }
+
+    public function getErrorCode(): ?int
+    {
+        return $this->error;
     }
 }
